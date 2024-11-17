@@ -49,4 +49,13 @@ public class UsernameTest {
         assertThat(Username.validate(username)).isFalse();
     }
 
+    @Test
+    void minimumLengthUsername() {
+        assertThat(Username.validate("abcd")).isTrue();
+    }
+
+    @Test
+    void longUsername() {
+        assertThat(Username.validate("a".repeat(1000))).isTrue();
+    }
 }
