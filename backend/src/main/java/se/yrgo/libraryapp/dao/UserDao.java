@@ -18,6 +18,7 @@ public class UserDao {
     private static Logger logger = LoggerFactory.getLogger(UserDao.class);
     private DataSource ds;
 
+
     @Inject
     UserDao(DataSource ds) {
         this.ds = ds;
@@ -59,8 +60,6 @@ public class UserDao {
     }
 
     public boolean register(String name, String realname, String password) {
-        Argon2PasswordEncoder encoder = new Argon2PasswordEncoder();
-        String passwordHash = encoder.encode(password);
 
         // handle names like Ian O'Toole
         realname = realname.replace("'", "\\'");
@@ -68,7 +67,7 @@ public class UserDao {
         try (Connection conn = ds.getConnection()) {
             conn.setAutoCommit(false);
 
-            return insertUserAndRole(name, realname, passwordHash, conn);
+            return insertUserAndRole(name, realname, password, conn);
         } catch (SQLException ex) {
             logger.error("Unable to register user " + name, ex);
             return false;
