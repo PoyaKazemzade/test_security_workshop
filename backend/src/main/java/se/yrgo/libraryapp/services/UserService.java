@@ -32,4 +32,19 @@ public class UserService {
 
         return Optional.of(loginInfo.getUserId());
     }
+
+    public boolean register(String username, String realname, String password) {
+        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username and password must not be empty");
+        }
+
+        if (!userDao.isNameAvailable(username)) {
+            return false;
+        }
+
+        String passwordHash = encoder.encode(password);
+
+        return userDao.register(username, realname, passwordHash);
+    }
+
 }

@@ -9,7 +9,9 @@ import java.util.Optional;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import se.yrgo.libraryapp.entities.*;
@@ -81,4 +83,7 @@ public class UserDaoTest {
         UserDao userDao = new UserDao(ds);
         assertThat(userDao.get(username)).isEmpty();
     }
+
 }
+
+
